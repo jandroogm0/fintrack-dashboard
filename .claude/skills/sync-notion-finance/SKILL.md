@@ -1,14 +1,28 @@
 ---
 name: sync-notion-finance
-description: Refresca el snapshot de datos del Finance Tracker de Notion que alimenta el dashboard en NOTION/dashboard/app y redespliega a Vercel. Usar cuando el usuario pida "sincroniza el dashboard financiero", "actualiza los datos de Notion", o como parte de la rutina diaria programada del dashboard financiero.
+description: Refresca el snapshot de datos del Finance Tracker de Notion que alimenta el dashboard financiero y redespliega a Vercel. Usar cuando el usuario pida "sincroniza el dashboard financiero", "actualiza los datos de Notion", o como parte de la rutina diaria programada del dashboard financiero.
 ---
 
 # Sync Notion Finance Tracker → Dashboard
 
-Regenera los 6 JSON de `NOTION/dashboard/app/data/` a partir del snapshot
-actual de Notion, valida que no rompen la app, y redespliega a producción en
-Vercel. Diseñada para ejecutarse de punta a punta sin intervención (rutina
-diaria), pero también se puede invocar manualmente.
+Regenera los 6 JSON de `data/` a partir del snapshot actual de Notion, valida
+que no rompen la app, y redespliega a producción en Vercel. Diseñada para
+ejecutarse de punta a punta sin intervención (rutina diaria), pero también se
+puede invocar manualmente.
+
+## Dónde corre esto
+
+Repo: https://github.com/jandroogm0/fintrack-dashboard (público, sin datos
+reales — `data/*.json` está gitignorado y se regenera en cada ejecución).
+
+- Si estás trabajando en local sobre el checkout completo del usuario, el
+  proyecto vive en `NOTION/dashboard/app/` y todas las rutas de este
+  documento son relativas a esa carpeta.
+- Si estás en un checkout limpio de ese repo (p. ej. la rutina programada en
+  la nube), la raíz del checkout **ya es** esa carpeta — no hay un nivel
+  `NOTION/dashboard/app/` anidado. Todas las rutas de este documento
+  (`data/`, `lib/types.ts`, etc.) son relativas a la raíz del repo tal cual
+  lo tengas delante; no antepongas `NOTION/dashboard/app/`.
 
 ## Contexto fijo (no rediscovers cada vez)
 
@@ -23,10 +37,9 @@ Data sources de Notion ya localizados — usar directamente, no buscar de nuevo:
 | Expense Categories | `collection://7c2191d0-6c64-4759-abf2-b29f3db7f4d1` |
 | Income Categories | `collection://a692c162-07a4-4dbe-b378-7fcda56e2cee` |
 
-Proyecto Next.js: `NOTION/dashboard/app`. Contrato de tipos ya definido en
-`NOTION/dashboard/app/lib/types.ts` (`Account`, `Category`, `RawExpense`,
-`RawIncome`, `RawTransfer`) — los JSON generados deben cumplirlo exactamente,
-mismos nombres de campo.
+Contrato de tipos ya definido en `lib/types.ts` (`Account`, `Category`,
+`RawExpense`, `RawIncome`, `RawTransfer`) — los JSON generados deben
+cumplirlo exactamente, mismos nombres de campo.
 
 ## Paso 1 — Extraer el snapshot completo de Notion
 
@@ -77,7 +90,7 @@ y sin guiones (32 caracteres hex). Las columnas de relación (`Accounts`,
 extrae ese mismo hash sin guiones para poblar `accountId`/`categoryId`/
 `fromAccountId`/`toAccountId`.
 
-Escribe en `NOTION/dashboard/app/data/`:
+Escribe en `data/`:
 - `accounts.json` → `{ id, name, tipoCuenta, tipoRenta, start }[]`
 - `expense-categories.json` → `{ id, name, monthlyBudget }[]`
 - `income-categories.json` → `{ id, name }[]`
@@ -100,8 +113,9 @@ Si hay huecos, **no** continuar al deploy — reportar el error con detalle
 
 ## Paso 4 — Build y redeploy
 
+En un checkout limpio no hay `node_modules/`:
 ```bash
-cd "NOTION/dashboard/app"
+npm install
 npm run build   # valida tipos + genera las 5 rutas estáticas; debe salir limpio
 ```
 
@@ -126,8 +140,10 @@ identificadores), pueden ir fijos en el prompt/config de la rutina.
 
 ## Paso 5 — Resumen
 
-Al terminar, reporta en una frase: rango de fechas cubierto, nº de
-transacciones nuevas desde el último sync (si se puede saber por el
-`git diff` de los JSON), y la URL de producción. Si algo falló en el paso 3
-o 4, reporta el fallo igual de claro — no digas "sincronizado" si no se
-desplegó.
+`data/*.json` está gitignorado (nunca hay histórico en git para diffear), así
+que el conteo de "filas nuevas" solo se puede saber comparando con lo que
+reportó la ejecución anterior (si tienes acceso a ese reporte), no con `git
+diff`. Al terminar, reporta en una frase: rango de fechas cubierto (min/max
+`date`), nº total de filas por fuente (expenses/incomes/transfers), y la URL
+de producción. Si algo falló en el paso 3 o 4, reporta el fallo igual de
+claro — no digas "sincronizado" si no se desplegó.
