@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/layout/Sidebar";
@@ -12,6 +12,14 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "FinTrack — Dashboard financiero",
   description: "Dashboard personal de finanzas alimentado por Notion",
+  appleWebApp: {
+    title: "FinTrack",
+    statusBarStyle: "black-translucent",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#6c5dd3",
 };
 
 export default function RootLayout({

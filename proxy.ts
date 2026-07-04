@@ -27,5 +27,8 @@ export default function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: "/((?!_next/static|_next/image|favicon.ico).*)",
+  // Icons/manifest are just branding assets (no financial data) — keep them
+  // outside auth so iOS "Add to Home Screen" can always fetch them.
+  matcher:
+    "/((?!_next/static|_next/image|favicon.ico|icon|apple-icon|manifest.webmanifest).*)",
 };
