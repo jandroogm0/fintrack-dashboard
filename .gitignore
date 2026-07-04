@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Real financial data snapshot — regenerated daily from Notion by the
+# sync-notion-finance skill, never committed to git.
+/data/*.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

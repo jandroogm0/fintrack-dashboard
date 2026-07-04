@@ -1,65 +1,116 @@
-import Image from "next/image";
+import { Wallet, TrendingUp, TrendingDown } from "lucide-react";
+import PageHeader from "@/components/layout/PageHeader";
+import Card from "@/components/ui/Card";
+import StatCard from "@/components/ui/StatCard";
+import BalanceLineChart from "@/components/charts/BalanceLineChart";
+import BudgetExpenseBarChart from "@/components/charts/BudgetExpenseBarChart";
+import CategoryDonutChart from "@/components/charts/CategoryDonutChart";
+import {
+  currentMonthKey,
+  shiftMonthKey,
+  monthLabel,
+  totalBalance,
+  monthlyIncomeTotal,
+  monthlyExpenseTotal,
+  pctChange,
+  balanceSeries,
+  budgetVsExpenseSeries,
+  expenseBreakdown,
+  incomes,
+  expenses,
+  transfers,
+  monthKey,
+} from "@/lib/data";
 
-export default function Home() {
+export default function ResumenPage() {
+  const current = currentMonthKey();
+  const previous = shiftMonthKey(current, -1);
+
+  const balanceNow = totalBalance(current);
+  const balancePrev = totalBalance(previous);
+
+  const incomeNow = monthlyIncomeTotal(current);
+  const incomePrev = monthlyIncomeTotal(previous);
+
+  const expenseNow = monthlyExpenseTotal(current);
+  const expensePrev = monthlyExpenseTotal(previous);
+
+  const txThisMonth = [...incomes, ...expenses, ...transfers].filter(
+    (t) => monthKey(t.date) === current
+  ).length;
+  const incomeTxThisMonth = incomes.filter((t) => monthKey(t.date) === current).length;
+  const expenseTxThisMonth = expenses.filter((t) => monthKey(t.date) === current).length;
+
+  const donut = expenseBreakdown(current);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div>
+      <PageHeader
+        title="Resumen"
+        subtitle="Vista general de tu situación financiera"
+        actions={
+          <span className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-medium">
+            {monthLabel(current)} {current.slice(0, 4)}
+          </span>
+        }
+      />
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <StatCard
+          title="Balance total"
+          amount={balanceNow}
+          pctChange={pctChange(balanceNow, balancePrev)}
+          footerLabel={`${txThisMonth} transacciones este mes`}
+          footerIcon={Wallet}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <StatCard
+          title="Ingresos"
+          amount={incomeNow}
+          pctChange={pctChange(incomeNow, incomePrev)}
+          footerLabel={`${incomeTxThisMonth} ingresos este mes`}
+          footerIcon={TrendingUp}
+        />
+        <StatCard
+          title="Gastos"
+          amount={expenseNow}
+          pctChange={pctChange(expenseNow, expensePrev)}
+          invertPct
+          footerLabel={`${expenseTxThisMonth} gastos este mes`}
+          footerIcon={TrendingDown}
+        />
+      </div>
+
+      <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-5">
+        <Card className="xl:col-span-3">
+          <h2 className="text-sm font-semibold">Evolución del balance</h2>
+          <p className="text-xs text-muted">Balance total acumulado por mes</p>
+          <div className="mt-2">
+            <BalanceLineChart data={balanceSeries()} />
+          </div>
+        </Card>
+
+        <Card className="xl:col-span-2">
+          <h2 className="text-sm font-semibold">Gasto por categoría</h2>
+          <p className="text-xs text-muted">
+            {monthLabel(current)} · {donut.length} categorías activas
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+          <div className="mt-4">
+            <CategoryDonutChart
+              data={donut}
+              centerLabel="Gasto del mes"
+              centerValue={expenseNow}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+        </Card>
+      </div>
+
+      <Card className="mt-4">
+        <h2 className="text-sm font-semibold">Presupuesto vs. gasto real</h2>
+        <p className="text-xs text-muted">Comparativa mensual</p>
+        <div className="mt-2">
+          <BudgetExpenseBarChart data={budgetVsExpenseSeries()} />
         </div>
-      </main>
+      </Card>
     </div>
   );
 }
