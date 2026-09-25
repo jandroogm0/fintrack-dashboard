@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparativa Política de Pagos</title>
+<style>
+  @font-face { font-family: "Nunito"; src: url("fonts/nunito.woff2") format("woff2"); font-weight: 200 1000; font-style: normal; }
+  @font-face { font-family: "Nunito Sans"; src: url("fonts/nunito-sans.woff2") format("woff2"); font-weight: 200 1000; font-style: normal; }
+  @font-face { font-family: "Nunito Sans"; src: url("fonts/nunito-sans-italic.woff2") format("woff2"); font-weight: 200 1000; font-style: italic; }
+  :root {
+    --petrol: #00343D;      /* PreZero azul petróleo (logo) */
+    --green: #8BBA13;       /* PreZero verde (logo) */
+    --green-soft: #EEF5DA;
+    --petrol-soft: #E6EDEE;
+    --ink: #1D2B2F;
+    --muted: #5B6B6F;
+    --line: #D5DDDF;
+    --paper: #FFFFFF;
+    --amber: #B7791F;
+    --amber-soft: #FBF1DE;
+    --red: #B42318;
+    --red-soft: #FDECEA;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #F2F4F4; color: var(--ink); }
+  body { font-family: "Nunito Sans", Verdana, Tahoma, sans-serif; font-size: 10pt; line-height: 1.45; }
+  h1, h2, h3, .num { font-family: "Nunito", "Nunito Sans", Verdana, sans-serif; color: var(--petrol); }
+
+  .page {
+    position: relative; width: 210mm; min-height: 297mm; margin: 0 auto 12mm;
+    padding: 30mm 18mm 26mm; background: var(--paper);
+    box-shadow: 0 1px 6px rgba(0,0,0,.08); page-break-after: always; break-after: page;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  .page-logo { position: absolute; top: 11mm; right: 18mm; height: 13mm; }
+  .page-foot {
+    position: absolute; left: 18mm; right: 18mm; bottom: 10mm;
+    border-top: 3px solid var(--green); padding-top: 2.5mm;
+    display: flex; justify-content: space-between; font-size: 8pt; color: var(--muted);
+  }
+
+  /* Portada */
+  .cover { padding: 0; display: flex; flex-direction: column; background: var(--petrol); color: #fff; }
+  .cover .top { padding: 18mm 18mm 0; display: flex; justify-content: space-between; align-items: flex-start; }
+  .cover .logo-box { background: #fff; border-radius: 0 0 6mm 0; padding: 5mm 6mm; }
+  .cover .logo-box img { height: 16mm; display: block; }
+  .cover .tag { font-size: 8.5pt; letter-spacing: .12em; text-transform: uppercase; color: var(--green); font-weight: 700; }
+  .cover .body { padding: 0 18mm; margin-top: auto; }
+  .cover h1 { color: #fff; font-size: 30pt; line-height: 1.08; margin: 0 0 6mm; font-weight: 800; }
+  .cover h1 span { color: var(--green); }
+  .cover .sub { font-size: 12.5pt; color: #CFE0E2; max-width: 150mm; margin: 0 0 12mm; }
+  .cover .bracket { width: 60mm; height: 22mm; border: 3.2mm solid var(--green); border-left: none; border-top: none; border-radius: 0 0 10mm 0; margin: 0 0 12mm auto; }
+  .cover .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,.25); margin: 0 18mm; }
+  .cover .meta div { padding: 5mm 0 16mm; font-size: 9pt; color: #CFE0E2; }
+  .cover .meta b { display: block; color: #fff; font-size: 10.5pt; font-family: "Nunito", sans-serif; }
+
+  h2 { font-size: 16pt; margin: 0 0 4mm; font-weight: 800; display: flex; align-items: center; gap: 3mm; }
+  h2 .n { display: inline-flex; align-items: center; justify-content: center; width: 8mm; height: 8mm; border-radius: 50%; background: var(--green); color: #fff; font-size: 11pt; }
+  h3 { font-size: 11.5pt; margin: 6mm 0 2mm; font-weight: 700; }
+  p { margin: 0 0 3mm; }
+  .lead { font-size: 11pt; color: var(--ink); }
+  .muted { color: var(--muted); }
+  .section { margin-bottom: 8mm; }
+
+  /* KPIs */
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 5mm 0 6mm; }
+  .kpi { border: 1px solid var(--line); border-top: 3px solid var(--green); padding: 3.5mm 4mm; border-radius: 0 0 3mm 0; }
+  .kpi .num { font-size: 20pt; font-weight: 800; line-height: 1; }
+  .kpi .lbl { font-size: 8.5pt; color: var(--muted); margin-top: 1.5mm; }
+  .kpi.hl { background: var(--petrol); border-color: var(--petrol); border-top-color: var(--green); }
+  .kpi.hl .num { color: var(--green); }
+  .kpi.hl .lbl { color: #CFE0E2; }
+
+  .callout { background: var(--green-soft); border-left: 4px solid var(--green); padding: 3.5mm 4.5mm; margin: 4mm 0; border-radius: 0 0 3mm 0; }
+  .callout.warn { background: var(--amber-soft); border-left-color: var(--amber); }
+  .callout b { color: var(--petrol); }
+
+  ul.clean { margin: 0 0 3mm; padding-left: 5mm; }
+  ul.clean li { margin-bottom: 1.5mm; }
+  ul.clean li::marker { color: var(--green); }
+
+  /* Tabla familias */
+  table { width: 100%; border-collapse: collapse; font-size: 8.4pt; line-height: 1.3; }
+  thead th { text-align: left; font-family: "Nunito", sans-serif; font-weight: 700; color: var(--petrol); border-bottom: 2.5px solid var(--green); padding: 2mm 2mm; vertical-align: bottom; }
+  tbody td { border-bottom: 1px solid var(--line); padding: 1.15mm 2mm; vertical-align: top; }
+  tbody tr.chg td { background: #FAFCF4; }
+  tbody tr.new td { background: var(--green-soft); }
+  tbody tr.cond td { background: var(--amber-soft); }
+  td.fam { font-weight: 600; }
+  td .was { display: block; color: var(--muted); font-weight: 400; font-size: 7.4pt; margin-top: .2mm; }
+  td .add { color: #4F6B0A; font-weight: 700; }
+  td.c { white-space: nowrap; }
+  .strike { text-decoration: line-through; color: var(--muted); }
+  .arrow { color: var(--amber); font-weight: 700; }
+  .badge { display: inline-block; font-size: 7.3pt; font-weight: 700; padding: .5mm 2mm; border-radius: 0 0 2mm 0; white-space: nowrap; letter-spacing: .02em; }
+  .b-same { background: #EEF1F1; color: var(--muted); }
+  .b-ext { background: var(--petrol-soft); color: var(--petrol); }
+  .b-new { background: var(--green); color: #fff; }
+  .b-cond { background: var(--amber); color: #fff; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4mm; font-size: 8pt; color: var(--muted); margin: 2.5mm 0 0; }
+  .note { font-size: 8pt; color: var(--muted); margin-top: 2mm; }
+
+  table.simple tbody td { padding: 2mm; }
+  table.dist td.num-c, table.dist th.num-c { text-align: center; }
+  .delta-up { color: #4F6B0A; font-weight: 700; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border: 1px solid var(--line); border-radius: 0 0 4mm 0; padding: 4mm; }
+  .card h3 { margin-top: 0; }
+  .card p { font-size: 9.3pt; }
+  .pill { display: inline-block; background: var(--petrol-soft); color: var(--petrol); font-size: 8pt; padding: .4mm 2mm; border-radius: 2mm; margin: 0 1mm 1mm 0; }
+
+  @media screen and (max-width: 820px) {
+    .page { width: auto; min-height: 0; padding: 26mm 16px 24mm; margin: 0 0 12px; }
+    .page-logo { right: 16px; }
+    .page-foot { left: 16px; right: 16px; }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .two { grid-template-columns: 1fr; }
+    .cover .meta { grid-template-columns: 1fr; }
+    .tbl-wrap { overflow-x: auto; }
+  }
+  @media print {
+    html, body { background: #fff; }
+    .page { margin: 0; box-shadow: none; height: 297mm; overflow: hidden; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PORTADA ============ -->
+<section class="page cover">
+  <div class="top">
+    <div class="logo-box"><img src="prezero-logo.png" alt="PreZero"></div>
+    <div class="tag">Informe comparativo · Uso interno</div>
+  </div>
+  <div class="body">
+    <div class="bracket"></div>
+    <h1>Política de pagos<br>a proveedores<br><span>2023 → 2026</span></h1>
+    <p class="sub">Principales diferencias entre la versión 1.0 (diciembre 2023) y la versión 2.0 (agosto 2026) de la norma NE.PZ-IB.EF-001, con foco en las familias de proveedores con condiciones de pago específicas.</p>
+  </div>
+  <div class="meta">
+    <div>Norma<b>NE.PZ-IB.EF-001</b></div>
+    <div>Versiones comparadas<b>v1.0 (29.12.2023) · v2.0 (01.09.2026)</b></div>
+    <div>Alcance<b>PreZero Iberia · España y Portugal</b></div>
+  </div>
+</section>
+
+<!-- ============ 1. RESUMEN ============ -->
+<section class="page">
+  <img class="page-logo" src="prezero-logo.png" alt="PreZero">
+
+  <div class="section">
+    <h2><span class="n">1</span>Resumen ejecutivo</h2>
+    <p class="lead">La versión 2.0 mantiene intacta la <b>regla de pago general</b> (confirming a 180 días desde emisión de factura, o transferencia a 60 días donde no hay línea de confirming). El grueso del cambio está en el <b>apartado 4 (reglas de pago específicas)</b>: la tabla de familias crece, varias familias amplían su perímetro y una familia relevante pasa a <b>pago al contado</b>.</p>
+
+    <div class="kpis">
+      <div class="kpi"><div class="num">20 → 22</div><div class="lbl">Familias con condición específica</div></div>
+      <div class="kpi"><div class="num">2</div><div class="lbl">Familias nuevas (Acometida eléctrica; Autónomos / pequeñas subcontratas)</div></div>
+      <div class="kpi"><div class="num">5</div><div class="lbl">Familias que amplían su alcance o denominación</div></div>
+      <div class="kpi hl"><div class="num">1</div><div class="lbl">Cambio de condición: Rentas de alquiler / renting / leasing pasan de transferencia 30 d a contado</div></div>
+    </div>
+
+    <h3>Lo más relevante</h3>
+    <ul class="clean">
+      <li><b>Rentas de alquiler, renting y leasing</b> (inmuebles, maquinaria, flota y equipos): de <i>Transferencia 30 días</i> a <i>Contado</i>. Es el único endurecimiento de plazo de la tabla y tiene impacto directo en caja.</li>
+      <li><b>Dos familias nuevas</b>: <i>Acometida eléctrica</i> (contado) y <i>Autónomos / pequeñas subcontratas</i> con un tope de <b>3 k€/mes</b> (transferencia 30 d).</li>
+      <li><b>Familias ampliadas</b>: Formación incorpora seminarios y congresos; Gastos de reuniones incorpora gastos navideños y traductores; Servicios jurídicos incorpora peritos y tasaciones; Notaría incorpora procuradores; Flota de disponibilidad pasa a «disponibilidad inmediata».</li>
+      <li><b>Nuevas reglas fuera de la tabla</b>: comercializadora de energía (MEFF, OMIE, REE, distribuidoras) paga según condiciones del proveedor, y proveedores ligados a <b>subvenciones</b> pueden cobrar por transferencia a 60 días.</li>
+      <li><b>Anticipos más ágiles</b>: las familias autorizadas a contado quedan exentas de la aprobación de Director de Negocio/Soporte + Director de Administración; basta un email previo a Pagos.</li>
+      <li><b>Descuento mínimo por pronto pago</b> baja del 4 % al 3,44 % anual y su revisión pasa de trimestral a semestral.</li>
+    </ul>
+
+    <div class="callout"><b>Qué no cambia.</b> Regla general (confirming 180 d / transferencia 60 d), días de pago (lunes confirming, jueves transferencias), plazos de registro en SAP, umbrales de aprobación (300.000 € y 200.000 €), anticipos de compras con máximo del 35 % con aval, pago por hitos en obras e instalaciones complejas y la protección de condiciones históricas pactadas con proveedores existentes.</div>
+  </div>
+
+  <div class="page-foot"><span>Comparativa NE.PZ-IB.EF-001 · Política de pagos a proveedores</span><span>Página 2</span></div>
+</section>
+
+<!-- ============ 2. TABLA DE FAMILIAS ============ -->
+<section class="page">
+  <img class="page-logo" src="prezero-logo.png" alt="PreZero">
+
+  <div class="section">
+    <h2><span class="n">2</span>Familias de proveedores con pagos específicos</h2>
+    <p>Comparativa línea a línea de la tabla del apartado 4. Aplica a proveedores y/o contratos nuevos cuando no sea posible acordar la condición estándar; los proveedores existentes conservan sus condiciones vigentes.</p>
+
+    <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th style="width:52%">Familia (v2.0 · 2026)</th><th>Condición 2023</th><th>Condición 2026</th><th>Cambio</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="fam">Auditoría, Consultoría, Gestoría</td><td class="c">Confirming 60 d</td><td class="c">Confirming 60 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr><td class="fam">Ingeniería</td><td class="c">Transferencia 30 d</td><td class="c">Transferencia 30 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr class="chg"><td class="fam">Formación <span class="add">/ Seminarios / Congresos</span><span class="was">2023: «Formación»</span></td><td class="c">Contado</td><td class="c">Contado</td><td><span class="badge b-ext">Ampliada</span></td></tr>
+        <tr><td class="fam">ITV</td><td class="c">Contado</td><td class="c">Contado</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr class="chg"><td class="fam">Gastos de reuniones / jornadas <span class="add">/ gastos navideños / traductores</span><span class="was">2023: «…jornadas departamentales»</span></td><td class="c">Contado</td><td class="c">Contado</td><td><span class="badge b-ext">Ampliada</span></td></tr>
+        <tr><td class="fam">Asociaciones, mecenazgos</td><td class="c">Transferencia 30 d</td><td class="c">Transferencia 30 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr><td class="fam">Análisis de mercados, estadísticas, suscripciones</td><td class="c">Transferencia 30 d</td><td class="c">Transferencia 30 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr><td class="fam">Servicios informáticos</td><td class="c">Transferencia 30 d</td><td class="c">Transferencia 30 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr class="chg"><td class="fam">Servicios jurídicos <span class="add">/ Peritos / Tasaciones</span><span class="was">2023: «Servicios jurídicos»</span></td><td class="c">Transferencia 30 d</td><td class="c">Transferencia 30 d</td><td><span class="badge b-ext">Ampliada</span></td></tr>
+        <tr class="chg"><td class="fam">Notaría <span class="add">/ Procuradores</span><span class="was">2023: «Notaría»</span></td><td class="c">Contado</td><td class="c">Contado</td><td><span class="badge b-ext">Ampliada</span></td></tr>
+        <tr><td class="fam">Suministros: materiales y productos para talleres, químicos de limpieza…</td><td class="c">Confirming 60 d</td><td class="c">Confirming 60 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr class="new"><td class="fam">Acometida eléctrica</td><td class="c muted">—</td><td class="c"><b>Contado</b></td><td><span class="badge b-new">Nueva</span></td></tr>
+        <tr class="new"><td class="fam">Autónomos / Pequeñas subcontratas <span class="was">Límite: máx. 3 k€/mes</span></td><td class="c muted">—</td><td class="c"><b>Transferencia 30 d</b></td><td><span class="badge b-new">Nueva</span></td></tr>
+        <tr><td class="fam">Talleres y reparaciones</td><td class="c">Confirming 60 d</td><td class="c">Confirming 60 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr><td class="fam">Tratamiento de residuos (incluye materiales de recuperación)</td><td class="c">Transferencia 30 d</td><td class="c">Transferencia 30 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr><td class="fam">Maquinaria (incl. contenedores) y Flota 1ª mano</td><td class="c">Confirming / transf.</td><td class="c">Confirming / transf.</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr><td class="fam">Maquinaria (incl. contenedores) y Flota 2ª mano</td><td class="c">Transferencia 30 d</td><td class="c">Transferencia 30 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr class="chg"><td class="fam">Maquinaria (incl. contenedores) y Flota de disp. <span class="add">inmediata</span><span class="was">2023: «Flota de disponibilidad»</span></td><td class="c">Contado</td><td class="c">Contado</td><td><span class="badge b-ext">Precisada</span></td></tr>
+        <tr><td class="fam">Transporte</td><td class="c">Confirming 60 d</td><td class="c">Confirming 60 d</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr class="cond"><td class="fam">Rentas de alquiler / renting / leasing de inmuebles, maquinaria, flota y equipos</td><td class="c"><span class="strike">Transferencia 30 d (*)</span></td><td class="c"><span class="arrow">→</span> <b>Contado (*)</b></td><td><span class="badge b-cond">Modificada</span></td></tr>
+        <tr><td class="fam">Suministros de electricidad, agua, gas y combustible</td><td class="c">Transferencia 30 d (*)</td><td class="c">Transferencia 30 d (*)</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+        <tr><td class="fam">Primas de seguro</td><td class="c">Contado (*)</td><td class="c">Contado (*)</td><td><span class="badge b-same">Sin cambios</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">(*) Salvo que se considere oportuna su domiciliación, según el apartado de domiciliaciones. Denominaciones de 2026 completadas donde la tabla original aparece truncada.</p>
+  </div>
+
+  <div class="page-foot"><span>Comparativa NE.PZ-IB.EF-001 · Política de pagos a proveedores</span><span>Página 3</span></div>
+</section>
+
+<!-- ============ 3. LECTURA DE LA TABLA ============ -->
+<section class="page">
+  <img class="page-logo" src="prezero-logo.png" alt="PreZero">
+
+  <div class="section">
+    <h2><span class="n">3</span>Lectura del cambio en las familias</h2>
+
+    <h3>Distribución por condición de pago</h3>
+    <table class="simple dist">
+      <thead><tr><th>Condición de pago</th><th class="num-c">2023</th><th class="num-c">2026</th><th class="num-c">Variación</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td><b>Contado</b></td><td class="num-c">6</td><td class="num-c"><b>8</b></td><td class="num-c delta-up">+2</td><td>+ Acometida eléctrica (nueva) · + Rentas de alquiler/renting/leasing (antes transf. 30 d)</td></tr>
+        <tr><td><b>Transferencia 30 d</b></td><td class="num-c">9</td><td class="num-c">9</td><td class="num-c">=</td><td>+ Autónomos / pequeñas subcontratas · − Rentas de alquiler/renting/leasing</td></tr>
+        <tr><td><b>Confirming 60 d</b></td><td class="num-c">4</td><td class="num-c">4</td><td class="num-c">=</td><td>Auditoría/Consultoría/Gestoría, Suministros de talleres, Talleres y reparaciones, Transporte</td></tr>
+        <tr><td><b>Confirming / transferencia</b></td><td class="num-c">1</td><td class="num-c">1</td><td class="num-c">=</td><td>Maquinaria y Flota 1ª mano</td></tr>
+        <tr><td><b>Total familias</b></td><td class="num-c"><b>20</b></td><td class="num-c"><b>22</b></td><td class="num-c delta-up">+2</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="two" style="margin-top:5mm">
+      <div class="card">
+        <h3>Impacto en tesorería</h3>
+        <p>El paso de las <b>rentas de alquiler, renting y leasing a contado</b> elimina 30 días de financiación sobre un gasto recurrente y de volumen significativo (inmuebles, flota, maquinaria). Conviene cuantificar el efecto en caja sobre los contratos nuevos que se acojan a esta familia.</p>
+      </div>
+      <div class="card">
+        <h3>Puntos de control</h3>
+        <p><b>Autónomos / pequeñas subcontratas</b> es la única familia con límite cuantitativo (3 k€/mes). Será necesario controlar que el proveedor no supere ese umbral para seguir acogido a transferencia 30 d.</p>
+        <p>Las familias ampliadas incorporan colectivos que en 2023 caían en la regla general (confirming 180 d): <span class="pill">Seminarios</span><span class="pill">Congresos</span><span class="pill">Gastos navideños</span><span class="pill">Traductores</span><span class="pill">Peritos</span><span class="pill">Tasaciones</span><span class="pill">Procuradores</span></p>
+      </div>
+    </div>
+
+    <h3>Vínculo con el régimen de anticipos (apartado 5.2)</h3>
+    <p>En 2026 la tabla de familias se conecta directamente con los anticipos: las familias autorizadas a contado quedan <b>exentas de la autorización</b> del Director de Negocio/Soporte + Director de Administración. Sus anticipos se tramitan con una comunicación previa por email a <i>departamentopagos.es@prezero.com</i>, sin autorización adicional. Familias expresamente citadas:</p>
+    <p><span class="pill">Formación / Seminarios / Congresos</span><span class="pill">Gastos de reuniones / Jornadas / Gastos navideños / Traductores</span><span class="pill">Notaría / Procuradores</span><span class="pill">Maquinaria y Flota de disponibilidad inmediata</span><span class="pill">Rentas de alquiler / renting / leasing</span><span class="pill">ITV</span><span class="pill">Acometida eléctrica</span><span class="pill">Primas de seguros</span></p>
+    <div class="callout">2023 solo admitía, con autorización, anticipos para reservas de salas, catering y provisiones de fondos a profesionales. 2026 lo sustituye por esta exención y añade un nuevo caso: <b>primeras compras con proveedores sin historial</b> que pidan anticipo.</div>
+  </div>
+
+  <div class="page-foot"><span>Comparativa NE.PZ-IB.EF-001 · Política de pagos a proveedores</span><span>Página 4</span></div>
+</section>
+
+<!-- ============ 4. OTRAS REGLAS ESPECÍFICAS ============ -->
+<section class="page">
+  <img class="page-logo" src="prezero-logo.png" alt="PreZero">
+
+  <div class="section">
+    <h2><span class="n">4</span>Otras novedades en reglas específicas</h2>
+
+    <h3>Domiciliaciones</h3>
+    <ul class="clean">
+      <li>Se añade una <b>prohibición expresa</b>: no se pueden concertar domiciliaciones con proveedores que no tengan la autorización del Manager de Pagos.</li>
+      <li>Los <b>inmuebles</b> salen de la categoría «Alquiler, renting y leasing» (plazo mínimo 30 días) y sus domiciliaciones de alquiler se aceptan <b>a 0 días</b>.</li>
+    </ul>
+
+    <h3>Comercializadora de energía <span class="badge b-new">Nueva</span></h3>
+    <p>Los pagos a <b>MEFF, OMIE, REE y distribuidoras</b> se harán según las condiciones que marque el proveedor, dadas las particularidades del mercado energético. Se establece un circuito de comunicación:</p>
+    <ul class="clean">
+      <li>Mercados Energéticos recibe las facturas y avisa a <i>soporte_p2p.es</i> (registro de anticipos en SAP), <i>departamentopagos.es</i> (pagos urgentes) y <i>tesoreria.iberia</i> (firma urgente).</li>
+      <li>Tras recibir la factura en VIM, Mercados Energéticos la aprueba y soporte P2P compensa el anticipo con la factura.</li>
+    </ul>
+
+    <h3>Proveedores vinculados a subvenciones <span class="badge b-new">Nueva</span></h3>
+    <p>Si el beneficiario de la subvención es una sociedad PreZero o un cliente de PreZero, se autoriza el pago por <b>transferencia a 60 días</b>, justificando nombre e identificación de la subvención, importe total, concepto y condiciones contables especiales. Se notifica a Pagos (excepción durante el proyecto), Tesorería, Activos Fijos y Contabilidad Medioambiente.</p>
+
+    <h3>Sin cambios en el apartado 4</h3>
+    <p class="muted">Pago por hitos en obras e instalaciones complejas (anticipo al contado con factura y aval), acuerdos marco, proveedores no residentes (transferencia), cargos intercompañía de Schwarz y proveedores negociados por Grupo Schwarz / PreZero Stiftung.</p>
+  </div>
+
+  <div class="page-foot"><span>Comparativa NE.PZ-IB.EF-001 · Política de pagos a proveedores</span><span>Página 5</span></div>
+</section>
+
+<section class="page">
+  <img class="page-logo" src="prezero-logo.png" alt="PreZero">
+
+  <div class="section">
+    <h2><span class="n">5</span>Cambios generales y de gobierno</h2>
+    <div class="tbl-wrap">
+    <table class="simple">
+      <thead><tr><th style="width:26%">Aspecto</th><th>v1.0 · 2023</th><th>v2.0 · 2026</th></tr></thead>
+      <tbody>
+        <tr><td><b>Aprobado por / área emisora</b></td><td>Director Financiero · Económico-Financiera</td><td>Dirección de Administración · Contabilidad</td></tr>
+        <tr><td><b>Exclusiones del ámbito</b></td><td>Empleados y gastos de personal</td><td>Se añaden impuestos, tasas y similares (salvo los tramitados manualmente por Pagos)</td></tr>
+        <tr><td><b>Compras de estructura</b></td><td>Departamentos de soporte</td><td>Incluye el Departamento de Construcción, con flujo de aprobación propio en los Anexos II A y B</td></tr>
+        <tr><td><b>Datos del beneficiario</b></td><td>—</td><td>Obligatorio disponer de todos los datos (incluida la dirección) para cualquier pago, manual o automático</td></tr>
+        <tr><td><b>Entrada en vigor</b></td><td>Con periodo transitorio sin flujos de aprobación</td><td>A la publicación, sin periodo transitorio</td></tr>
+        <tr><td><b>Descuento mínimo pronto pago</b></td><td>4 % anual · revisión trimestral</td><td>3,44 % anual · revisión semestral</td></tr>
+        <tr><td><b>Anexo I (confirming)</b></td><td>16 sociedades y UTEs</td><td>19 sociedades y UTEs. Altas: PreZero Iberia S.L.U., UTE Metabarri Construcción, Ecozero Residuos S.L., UTE Paraninfo Tres Cantos. Baja: UTE C.T.R.U. Albacete</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="callout warn"><b>Aspectos a revisar en el documento 2026.</b> (1) Mantiene la frase «descuento mínimo vigente hasta marzo 24», que parece no actualizada. (2) La portada indica publicación 01.09.2026 y el histórico, 30.08.2026. (3) En la tabla de familias algunas denominaciones aparecen cortadas («químicos de l…», «disponibilidad inm…», «inmuebles, maquinaria…»).</div>
+  </div>
+
+  <div class="page-foot"><span>Comparativa NE.PZ-IB.EF-001 · Política de pagos a proveedores</span><span>Página 6</span></div>
+</section>
+
+</body>
+</html>
