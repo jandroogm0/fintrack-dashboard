@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Manual de Onboarding de Clientes — AG Financial Office</title>
+<style>
+  @page { size: A4; margin: 14mm 14mm 13mm 14mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: Helvetica, "Liberation Sans", Arial, sans-serif;
+    font-size: 8.6pt; line-height: 1.58; color: #1d1d1f; margin: 0;
+  }
+  header.doc {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding-bottom: 9px; border-bottom: 1.6px solid #0a84ff; margin-bottom: 16px;
+  }
+  .brand { display: inline-block; border-top: 1px solid #c7c7cc; border-bottom: 1px solid #c7c7cc; padding: 3px 26px 3px 0; }
+  .brand .name {
+    font-size: 13pt; font-weight: 700; letter-spacing: -0.2px;
+    background: linear-gradient(90deg, #0a84ff 0%, #5e5ce6 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .brand .role { font-size: 6.8pt; color: #3a3a3c; margin-top: 1px; }
+  .title { text-align: right; }
+  .title h1 { font-size: 12.5pt; margin: 6px 0 4px; font-weight: 700; }
+  .title .sub { font-size: 6.8pt; color: #6e6e73; }
+  .notice {
+    background: #f2f2f7; border-radius: 8px; padding: 10px 14px; margin: 14px 0 18px;
+    font-size: 7.4pt; color: #3a3a3c;
+  }
+  .notice b { color: #1d1d1f; }
+  h2 {
+    font-size: 8.6pt; font-weight: 700; margin: 14px 0 5px; padding-left: 9px;
+    border-left: 3px solid #0a84ff; line-height: 1.35; break-after: avoid;
+  }
+  h3 { font-size: 8.2pt; font-weight: 700; margin: 10px 0 3px; color: #1d1d1f; break-after: avoid; }
+  p { margin: 0 0 6px; text-align: justify; }
+  ul, ol { margin: 2px 0 7px; padding-left: 16px; }
+  li { margin: 0 0 2px; }
+  ol li::marker { font-weight: 700; color: #0a84ff; }
+  table { width: 100%; border-collapse: collapse; margin: 4px 0 8px; font-size: 7.6pt; line-height: 1.5; }
+  thead { display: table-header-group; }
+  th {
+    text-align: left; font-size: 6.4pt; font-weight: 700; color: #6e6e73; text-transform: uppercase;
+    letter-spacing: 0.3px; padding: 5px 8px 6px 4px; border-bottom: 1px solid #d1d1d6;
+  }
+  td { padding: 6px 8px 6px 4px; border-bottom: 1px solid #e5e5ea; vertical-align: top; }
+  tr { break-inside: avoid; }
+  .tag {
+    display: inline-block; font-size: 6.4pt; font-weight: 700; color: #0a84ff; background: #e8f1ff;
+    border-radius: 4px; padding: 0 5px; margin-right: 3px; white-space: nowrap;
+  }
+  .check { list-style: none; padding-left: 2px; }
+  .check li::before { content: "☐"; color: #0a84ff; margin-right: 6px; }
+  .note { color: #6e6e73; font-size: 7.3pt; }
+  .keep { break-inside: avoid; }
+  footer.doc {
+    display: flex; justify-content: space-between; margin-top: 16px; padding-top: 7px;
+    border-top: 1px solid #e5e5ea; font-size: 6.4pt; color: #8e8e93;
+  }
+</style>
+</head>
+<body>
+
+<header class="doc">
+  <div class="brand">
+    <div class="name">AG Financial Office</div>
+    <div class="role">Financial Advisor</div>
+  </div>
+  <div class="title">
+    <h1>Manual de Onboarding de Clientes</h1>
+    <div class="sub">Procedimiento interno · Servicio de Asesoramiento Financiero</div>
+  </div>
+</header>
+
+<div class="notice">
+  <b>Documento de uso interno.</b> Procedimiento de trabajo, no asesoramiento jurídico. Debe revisarse con un abogado o con un consultor de cumplimiento normativo antes de aplicarlo de verdad.
+  El servicio de asesoramiento está pendiente de acreditación CNMV: hasta obtenerla, este manual no debe usarse para prestar asesoramiento regulado. Versión 1.0 · 08 de octubre de 2026.
+</div>
+
+<h2>1 · Objeto y alcance</h2>
+<p>Este manual fija los pasos que sigue AG Financial Office desde el primer contacto con un cliente potencial hasta que su cartera queda en régimen de seguimiento.
+El objetivo es que todos los clientes reciban el mismo tratamiento, que cada recomendación sea idónea y esté documentada, y que toda la información quede registrada en el ERP Financial Hub Advisor.
+El procedimiento se basa en la Ley 6/2023 de los Mercados de Valores y de los Servicios de Inversión, la Directiva 2014/65/UE (MiFID II), los arts. 54 y 55 del Reglamento Delegado (UE) 2017/565, las Directrices de ESMA sobre idoneidad, la Ley 10/2010 de prevención del blanqueo de capitales y el Manual de Protección de Datos (RGPD) de la firma.</p>
+
+<h2>2 · Mapa del proceso</h2>
+<table>
+  <thead><tr><th style="width:21%">Fase</th><th style="width:33%">Objetivo</th><th style="width:26%">Entregable</th><th style="width:20%">Registro en el ERP</th></tr></thead>
+  <tbody>
+    <tr><td>0 · Primer contacto</td><td>Precalificar al cliente potencial y entregar la información previa</td><td>Información precontractual y cláusula RGPD firmada</td><td>Alta como cliente potencial</td></tr>
+    <tr><td>1 · Información general</td><td>Conocer el background, la experiencia, la situación financiera y la planificación del cliente</td><td>Cuestionario, documentación KYC y Diagnóstico Patrimonial</td><td>Ficha de cliente · Documentos</td></tr>
+    <tr><td>2 · Test de idoneidad</td><td>Determinar el perfil de riesgo y los límites de la recomendación</td><td>Test de idoneidad firmado y perfil asignado</td><td>Ficha de cliente (perfil)</td></tr>
+    <tr><td>3 · Asset Allocation</td><td>Diseñar la cartera objetivo y la propuesta de inversión</td><td>Asset Allocation, Rentabilidad Esperada y declaración de idoneidad</td><td>Asignación Objetivo · Documentos</td></tr>
+    <tr><td>4 · Contrato</td><td>Formalizar la relación de asesoramiento</td><td>Contrato de prestación de servicios firmado</td><td>Cliente activo · Facturación</td></tr>
+    <tr><td>5 · Puesta en marcha</td><td>Ejecutar la cartera objetivo en la entidad del cliente</td><td>Operaciones ejecutadas y verificadas</td><td>Transacciones · Posiciones</td></tr>
+    <tr><td>6 · Seguimiento</td><td>Mantener la cartera alineada con el perfil y los objetivos</td><td>Informes periódicos y revisión anual</td><td>Informes · Alertas de Control</td></tr>
+  </tbody>
+</table>
+
+<h2>3 · Fase 0 — Primer contacto y precalificación</h2>
+<ol>
+  <li><b>Reunión inicial</b> (30–45 min, presencial o por videollamada). En ella se explica el servicio, si el asesoramiento es independiente o no independiente, cómo se remunera la firma y qué no hace: no custodia activos ni ejecuta órdenes en nombre del cliente.</li>
+  <li><b>Precalificación.</b> Se comprueba que el cliente encaja en el servicio: patrimonio invertible, horizonte temporal, expectativas razonables y ausencia de incompatibilidades o conflictos de interés. Si no encaja, se le comunica y se cierra el expediente.</li>
+  <li><b>Información precontractual.</b> Se envía por correo la información sobre la firma y el servicio, la tarifa de honorarios vigente, una estimación de costes y gastos <i>ex ante</i> y la política de conflictos de interés.</li>
+  <li><b>Protección de datos.</b> Se entrega la cláusula informativa RGPD y se recoge, por separado, el consentimiento opcional para comunicaciones informativas.</li>
+  <li><b>Alta en el ERP</b> como cliente potencial, con los datos de contacto y la fecha del primer contacto. El registro se conserva un máximo de 2 años sin actividad.</li>
+</ol>
+
+<h2>4 · Fase 1 — Información general del cliente</h2>
+<p>El cliente rellena el cuestionario de onboarding (Formulario de Google enlazado en la página principal de Notion) y después se revisa con él en una reunión.
+Ninguna respuesta se da por buena sin contrastarla: si hay incoherencias, se aclaran en la reunión y la aclaración queda anotada.</p>
+<table>
+  <thead><tr><th style="width:22%">Bloque</th><th style="width:50%">Información a recoger</th><th style="width:28%">Soporte</th></tr></thead>
+  <tbody>
+    <tr><td>Personal background</td><td>Datos identificativos, edad, estado civil, personas a cargo, profesión y sector, estabilidad laboral, residencia fiscal y situación sucesoria</td><td>Cuestionario · DNI/NIE · certificado de residencia fiscal si no reside en España</td></tr>
+    <tr><td>Conocimientos y experiencia</td><td>Formación financiera, productos que conoce y ha contratado (fondos, ETFs, acciones, renta fija, derivados), frecuencia y volumen de operaciones en los últimos 3–5 años y forma en que ha invertido (asesorado, gestionado o por su cuenta)</td><td>Cuestionario · extractos de cartera actuales</td></tr>
+    <tr><td>Información financiera general</td><td>Ingresos netos y su estabilidad, gastos recurrentes, capacidad de ahorro mensual, patrimonio financiero e inmobiliario, deudas (hipoteca, préstamos) y colchón de liquidez disponible</td><td>Cuestionario · última declaración de IRPF · posiciones actuales</td></tr>
+    <tr><td>Planificación</td><td>Objetivos concretos (jubilación, vivienda, educación de los hijos, renta complementaria), importe y fecha de cada objetivo, horizonte temporal, necesidades de liquidez previstas y preferencias de sostenibilidad (ASG)</td><td>Reunión de planificación</td></tr>
+    <tr><td>KYC y prevención del blanqueo</td><td>Identificación formal, origen de los fondos, actividad económica, condición de persona con responsabilidad pública (PRP) y titularidad real</td><td>DNI/NIE · justificante de domicilio · declaración de origen de fondos</td></tr>
+  </tbody>
+</table>
+<p><b>Entregable:</b> el <b>Diagnóstico Patrimonial</b>, que recoge el balance del cliente, su flujo de ahorro, la priorización de sus objetivos y las conclusiones. Se sube al ERP en la ficha del cliente, pestaña <i>Documentación</i>, con el tipo «Diagnóstico Patrimonial».</p>
+
+<h2>5 · Fase 2 — Test de idoneidad</h2>
+<p>Antes de cualquier recomendación es obligatorio evaluar la idoneidad. El test se basa en tres pilares y el perfil final lo marca siempre el pilar <b>más restrictivo</b>, nunca la media de los tres.</p>
+<table>
+  <thead><tr><th style="width:24%">Pilar</th><th style="width:46%">Qué se evalúa</th><th style="width:30%">Efecto en el perfil</th></tr></thead>
+  <tbody>
+    <tr><td>Conocimientos y experiencia</td><td>Si el cliente comprende los productos y sus riesgos: preguntas de conocimiento objetivas, no solo autodeclaradas</td><td>Excluye los productos que el cliente no entiende</td></tr>
+    <tr><td>Situación financiera</td><td>Capacidad de soportar pérdidas, peso de la inversión sobre el patrimonio total y estabilidad de ingresos</td><td>Limita la exposición máxima a renta variable</td></tr>
+    <tr><td>Objetivos de inversión</td><td>Finalidad, horizonte temporal, tolerancia al riesgo (caída máxima aceptable) y preferencias de sostenibilidad</td><td>Fija el perfil de riesgo objetivo</td></tr>
+  </tbody>
+</table>
+<table class="keep">
+  <thead><tr><th style="width:18%">Perfil</th><th style="width:20%">Horizonte orientativo</th><th style="width:22%">Caída tolerada</th><th style="width:20%">Renta variable</th><th style="width:20%">SRRI máximo por producto</th></tr></thead>
+  <tbody>
+    <tr><td>Conservador</td><td>&lt; 3 años</td><td>Hasta −5 %</td><td>0–20 %</td><td>3</td></tr>
+    <tr><td>Moderado</td><td>3–5 años</td><td>Hasta −10 %</td><td>20–40 %</td><td>4</td></tr>
+    <tr><td>Equilibrado</td><td>5–8 años</td><td>Hasta −20 %</td><td>40–60 %</td><td>5</td></tr>
+    <tr><td>Dinámico</td><td>8–12 años</td><td>Hasta −30 %</td><td>60–85 %</td><td>6</td></tr>
+    <tr><td>Agresivo</td><td>&gt; 12 años</td><td>Más de −30 %</td><td>85–100 %</td><td>7</td></tr>
+  </tbody>
+</table>
+<ul>
+  <li>Si las respuestas son incoherentes (por ejemplo, alta tolerancia al riesgo con un horizonte de un año), se repregunta y se anota la aclaración. En caso de duda, se aplica el perfil inferior.</li>
+  <li>El cliente firma el test. Si no aporta la información necesaria, <b>no se le presta asesoramiento</b>.</li>
+  <li>El perfil y la fecha del test se registran en la ficha del cliente del ERP. El test se repite cada año o cuando cambie la situación del cliente.</li>
+</ul>
+
+<h2>6 · Fase 3 — Asset Allocation y propuesta de inversión</h2>
+<ol>
+  <li><b>Asignación estratégica.</b> A partir del perfil y de los objetivos se fija el peso objetivo de cada clase de activo (monetario, renta fija, renta variable por geografía y alternativos), con sus bandas mínima y máxima. Cada objetivo con un horizonte distinto puede tener su propia cartera.</li>
+  <li><b>Selección de instrumentos.</b> Se prioriza a) los fondos traspasables, por su diferimiento fiscal (art. 94 LIRPF), b) el bajo coste (TER), c) la diversificación y d) un SRRI compatible con el perfil. Las razones de cada elección quedan documentadas.</li>
+  <li><b>Rentabilidad esperada.</b> Se proyectan escenarios desfavorable, central y favorable sobre el horizonte del cliente, indicando que las rentabilidades pasadas no garantizan las futuras.</li>
+  <li><b>Costes.</b> Se informa del coste total agregado: honorarios de asesoramiento más los costes de los productos, y su efecto acumulado sobre la rentabilidad.</li>
+  <li><b>Declaración de idoneidad.</b> Antes de ejecutar nada, se entrega al cliente un informe que explica por qué la propuesta se ajusta a su perfil, sus objetivos y sus preferencias, e incluye sus ventajas y sus riesgos.</li>
+  <li><b>Reunión de presentación.</b> Se resuelven las dudas del cliente y se ajusta la propuesta si hace falta. La versión aceptada es la que se registra en el ERP.</li>
+</ol>
+<p><b>Entregables:</b> los documentos <b>Asset Allocation</b> y <b>Rentabilidad Esperada</b> y la declaración de idoneidad, que se suben a la pestaña <i>Documentación</i>. La cartera objetivo y sus bandas se cargan en <i>Asignación Objetivo</i>.</p>
+
+<h2>7 · Fase 4 — Contrato de prestación de servicios</h2>
+<p>La relación se formaliza con un contrato por escrito, firmado electrónicamente o en papel, antes de la puesta en marcha. Contenido mínimo del contrato:</p>
+<ul>
+  <li>Identificación de las partes y objeto: asesoramiento en materia de inversión, que puede ser independiente o no independiente.</li>
+  <li>Alcance del servicio: la firma no custodia activos, no tiene poder de disposición sobre ellos y no ejecuta órdenes. El cliente mantiene siempre la titularidad y el control de sus cuentas.</li>
+  <li>Honorarios: base de cálculo, periodicidad, forma de pago y política sobre incentivos de terceros.</li>
+  <li>Frecuencia y contenido de los informes y de la revisión periódica de idoneidad.</li>
+  <li>Obligaciones de información del cliente, en particular comunicar cualquier cambio relevante en su situación.</li>
+  <li>Protección de datos, confidencialidad, procedimiento de quejas y reclamaciones, duración, desistimiento y resolución.</li>
+</ul>
+<p class="keep"><b>Documentación a firmar:</b></p>
+<ul class="check keep">
+  <li>Contrato de prestación de servicios de asesoramiento</li>
+  <li>Test de idoneidad y Diagnóstico Patrimonial</li>
+  <li>Declaración de idoneidad de la propuesta inicial</li>
+  <li>Cláusula RGPD y consentimientos</li>
+  <li>Declaración de origen de fondos y condición de PRP</li>
+</ul>
+<p>Una vez firmado el contrato, el cliente pasa a estado <b>activo</b> en el ERP y se da de alta en Facturación según la tarifa pactada.</p>
+
+<h2>8 · Fase 5 — Puesta en marcha</h2>
+<p>El cliente es quien ejecuta las operaciones en su entidad. AG Financial Office le indica qué hacer y le acompaña en cada paso, pero no opera en su nombre.</p>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:24%">Paso</th><th style="width:48%">Cómo se hace</th><th style="width:24%">Registro</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Apertura de cuenta</td><td>Si el cliente no tiene una plataforma adecuada, abre una cuenta de valores o de fondos a su nombre en la entidad que elija. Se le facilita una guía con los pasos a seguir.</td><td>Entidad y número de cuenta en la ficha</td></tr>
+    <tr><td>2</td><td>Hoja de órdenes</td><td>Se envía al cliente un documento con cada operación: instrumento, ISIN, tipo (suscripción, traspaso o venta), importe y orden de ejecución.</td><td>Documentación</td></tr>
+    <tr><td>3</td><td>Traspasos de fondos</td><td>El traspaso se solicita siempre <b>en la entidad de destino</b>, indicando el fondo de origen y su ISIN. No se reembolsa, para no generar un evento fiscal (art. 94 LIRPF). Plazo habitual: de 5 a 15 días hábiles.</td><td>Dos transacciones vinculadas: salida y entrada</td></tr>
+    <tr><td>4</td><td>Aportaciones</td><td>Si hay aportación inicial, se transfiere el dinero a la cuenta de la entidad y se suscriben los fondos según la hoja de órdenes. Si se acuerdan aportaciones periódicas, se programan.</td><td>Transacciones de compra</td></tr>
+    <tr><td>5</td><td>Verificación</td><td>El cliente envía los justificantes de cada operación. Se cruzan con la hoja de órdenes y se comprueban las participaciones (con 6 decimales), el NAV y las comisiones.</td><td>Marcar «Verificada»</td></tr>
+    <tr><td>6</td><td>Alta en el ERP</td><td>Se registran todas las operaciones (en fondos, por participaciones; en divisa, por su contravalor en EUR) y se lanza la sincronización con Notion.</td><td>Posiciones FIFO calculadas</td></tr>
+    <tr><td>7</td><td>Cierre del onboarding</td><td>Se comprueba que la cartera real coincide con la objetivo dentro de las bandas y se envía al cliente un correo de bienvenida con el calendario de seguimiento.</td><td>Informe inicial de cartera</td></tr>
+  </tbody>
+</table>
+<p class="note">Plazo objetivo de la puesta en marcha: 30 días desde la firma del contrato. Si algún traspaso se retrasa, se informa al cliente y se registra en las notas internas.</p>
+
+<h2>9 · Fase 6 — Seguimiento del cliente</h2>
+<table>
+  <thead><tr><th style="width:18%">Periodicidad</th><th style="width:52%">Actuación</th><th style="width:30%">Soporte</th></tr></thead>
+  <tbody>
+    <tr><td>Semanal</td><td>Sincronizar el ERP y revisar las alertas de control (desviación de bandas, concentración, operaciones sin verificar)</td><td>Dashboard · Alertas de Control</td></tr>
+    <tr><td>Mensual</td><td>Revisar la rentabilidad y la desviación de cada cartera respecto a su asignación objetivo</td><td>Rentabilidad Mensual</td></tr>
+    <tr><td>Trimestral</td><td>Enviar el informe de seguimiento: valoración, rentabilidad, movimientos y comentario de mercado</td><td>Informes</td></tr>
+    <tr><td>Anual</td><td>Reunión de revisión, nuevo test de idoneidad, informe anual de idoneidad e informe <i>ex post</i> de costes y gastos</td><td>Documentación · Informes</td></tr>
+    <tr><td>Por evento</td><td>Revisar la cartera ante cambios vitales (empleo, herencia, nacimiento de un hijo, jubilación), una nueva aportación o un reembolso, o cualquier petición del cliente</td><td>Notas internas · nuevo test</td></tr>
+  </tbody>
+</table>
+<h3>Rebalanceo</h3>
+<p>Se propone un rebalanceo cuando una clase de activo sale de su banda mínima o máxima, o en la revisión anual. Se prioriza hacerlo con las nuevas aportaciones o con traspasos entre fondos, para no generar plusvalías.
+Cada propuesta de rebalanceo va acompañada de su declaración de idoneidad.</p>
+<h3>Comunicación y calidad</h3>
+<p>Las solicitudes del cliente se responden en un máximo de 48 horas hábiles. Las quejas se registran y se resuelven conforme al procedimiento de reclamaciones. Cada año se pide al cliente su valoración del servicio.</p>
+
+<h2>10 · Baja del cliente</h2>
+<p>Si el cliente o la firma resuelven el contrato, se emite la última factura (prorrateada si procede) y un informe final de cartera. El cliente pasa a estado <b>inactivo</b> en el ERP y su expediente se conserva durante los plazos indicados en el apartado siguiente.
+Como los activos siempre están a nombre del cliente, la baja no requiere mover ninguna posición.</p>
+
+<h2>11 · Registro documental y conservación</h2>
+<table class="keep">
+  <thead><tr><th style="width:36%">Documento</th><th style="width:30%">Ubicación</th><th style="width:34%">Conservación</th></tr></thead>
+  <tbody>
+    <tr><td>Contrato, test de idoneidad y declaraciones de idoneidad</td><td>ERP · Documentación</td><td>Mínimo 5 años desde el fin de la relación (MiFID II)</td></tr>
+    <tr><td>Documentación KYC y de prevención del blanqueo</td><td>ERP · Documentación</td><td>10 años (Ley 10/2010)</td></tr>
+    <tr><td>Diagnóstico, Asset Allocation e informes</td><td>ERP · Documentación / Informes</td><td>Vigencia del contrato + 6 años</td></tr>
+    <tr><td>Facturas</td><td>ERP · Facturación</td><td>6 años desde la última anotación</td></tr>
+  </tbody>
+</table>
+
+<h2>12 · Revisión del manual</h2>
+<p>Este manual se revisará al menos una vez al año y siempre que cambie la normativa aplicable, los productos recomendados o las herramientas del ERP.
+Cada versión se archiva en la pestaña <i>Documentación</i> del ERP con su fecha de entrada en vigor.</p>
+
+<footer class="doc">
+  <span>AG Financial Office · Alejandro Garcia Montellano</span>
+  <span>Manual de Onboarding de Clientes · Documento confidencial de uso interno</span>
+</footer>
+
+</body>
+</html>
